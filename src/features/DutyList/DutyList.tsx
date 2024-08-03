@@ -4,6 +4,7 @@ import { Checkbox } from "antd";
 import { z } from "zod";
 import isEqual from "lodash.isequal";
 import { useDuty } from "./useDuty";
+import { useDetectBlur } from "./useDetectBlur";
 import "./DutyList.css";
 
 //TODO: handle line drop when overflow
@@ -60,30 +61,7 @@ function Task<Data extends TaskData>(props: TaskProps<Data>) {
   // detect component blur
   const formRef: React.RefObject<HTMLFormElement> = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [isBlur, setIsBlur] = useState(false);
-
-  useEffect(() => {
-    function handleClickAway(event: MouseEvent) {
-      if (
-        formRef?.current &&
-        !formRef?.current.contains(event.target as Node)
-      ) {
-        setIsBlur(true);
-      }
-    }
-
-    if (isEditing) {
-      document.addEventListener("mousedown", handleClickAway);
-    } else {
-      document.removeEventListener("mousedown", handleClickAway);
-      setIsBlur(false);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickAway);
-      setIsBlur(false);
-    };
-  }, [isEditing]);
+  const { isBlur } = useDetectBlur(formRef, isEditing);
 
   const handleSubmit = useCallback(
     (newData: Data) => {
