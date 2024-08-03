@@ -1,0 +1,51 @@
+.to-do-list {
+  max-width: 680px;
+  min-width: 300px;
+
+  border: 1px solid rgb(241, 243, 244);
+  border-radius: 16px;
+
+  padding: 1rem;
+
+  background-color: #fff;
+
+  text-align: left;
+}
+
+.to-do-list:hover {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 1px 3px 1px rgba(60, 64, 67, 0.149);
+}
+
+.to-do-list .list-name {
+  margin: 0;
+  padding-bottom: 0.5rem;
+  font-weight: normal;
+}
+
+.to-do-list .task-form {
+  display: flex;
+}
+
+.to-do-list .task-form input {
+  border: 0;
+  margin-left: 0.5rem;
+  transition: 0.1s ease-in-out;
+  width: 100%;
+}
+
+.to-do-list .task-form input:focus {
+  outline: none;
+  border-bottom: 2px solid #3875f6;
+}
+
+.to-do-list .task-form.error input {
+  border-bottom: 2px solid #ec5b56;
+}
+
+.to-do-list .error-message {
+  margin: 0;
+  margin-left: 1.5rem;
+  color: #ec5b56;
+  font-size: small;
+}
