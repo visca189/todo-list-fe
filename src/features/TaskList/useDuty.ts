@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Duty } from "./types";
 
-interface Duty {
-  id: string;
-  name: string;
-}
+const TaskListBackendUrl = import.meta.env.REACT_APP_TASK_LIST_BACKEND_URL;
 
 function useDuty() {
   const [duties, setDuties] = useState<Duty[]>([]);
@@ -13,7 +11,7 @@ function useDuty() {
 
   const fetchDuties = async () => {
     try {
-      // const response = await axios.get<Duty[]>("http://localhost:5000/duties");
+      // const response = await axios.get<Duty[]>(TaskListBackendUrl);
       const response = { data: [] };
       setDuties(response.data);
       setLoading(false);
@@ -25,7 +23,7 @@ function useDuty() {
 
   const addDuty = async (name: string) => {
     try {
-      // const response = await axios.post<Duty>("http://localhost:5000/duties", {
+      // const response = await axios.post<Duty>(TaskListBackendUrl, {
       //   name,
       // });
       const response = { data: { id: String(Math.random() * 10), name: name } };
@@ -37,10 +35,19 @@ function useDuty() {
 
   const updateDuty = async (id: string, name: string) => {
     try {
-      // await axios.put(`http://localhost:5000/duties/${id}`, { name });
+      // await axios.put(`${TaskListBackendUrl}/${id}`, { name });
       setDuties((prevDuties) =>
         prevDuties.map((duty) => (duty.id === id ? { ...duty, name } : duty))
       );
+    } catch (err) {
+      setError("Failed to update duty");
+    }
+  };
+
+  const deleteDuty = async (id: string) => {
+    try {
+      // await axios.post(`${TaskListBackendUrl}/${id}`, { name });
+      setDuties((prevDuties) => prevDuties.filter((duty) => duty.id !== id));
     } catch (err) {
       setError("Failed to update duty");
     }
@@ -54,6 +61,7 @@ function useDuty() {
     duties,
     addDuty,
     updateDuty,
+    deleteDuty,
     loading,
     error,
   };
