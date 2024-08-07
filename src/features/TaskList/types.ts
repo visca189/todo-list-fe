@@ -3,6 +3,7 @@ import { z } from "zod";
 export const TaskDataSchema = z.object({
   id: z.string().trim().min(1),
   name: z.string().trim().min(1),
+  is_completed: z.boolean(),
 });
 
 export type TaskData = z.infer<typeof TaskDataSchema>;
@@ -11,6 +12,7 @@ export interface InputProps {
   value: string;
   placeholder: string;
   prefix: React.ReactNode;
+  disabled?: boolean;
   autoFocus?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -22,7 +24,10 @@ export type TaskProps = {
   inputProps: Omit<InputProps, "onChange" | "value">;
 };
 
-export interface Duty {
-  id: string;
-  name: string;
-}
+export const DutySchema = z.object({
+  id: z.string().trim().min(1),
+  name: z.string().trim().min(1),
+  is_completed: z.boolean(),
+});
+
+export type Duty = z.infer<typeof DutySchema>;
