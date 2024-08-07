@@ -18,14 +18,15 @@ export interface InputProps {
 }
 
 export type TaskProps = {
-  onSubmit: (data: TaskData) => void;
-  error: string | null;
+  className?: string;
+  onSubmit: (data: TaskData) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
   data: TaskData;
   inputProps: Omit<InputProps, "onChange" | "value">;
 };
 
 export const DutySchema = z.object({
-  id: z.string().trim().min(1),
+  id: z.string().trim().uuid(),
   name: z.string().trim().min(1),
   is_completed: z.boolean(),
 });

@@ -5,7 +5,7 @@ function Input(props: InputProps) {
   return (
     <>
       {PrefixIcon}
-      <input type="text" name="name" {...otherProps} />
+      <input data-type="text-input" type="text" name="name" {...otherProps} />
     </>
   );
 }

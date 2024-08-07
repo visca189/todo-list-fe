@@ -5,14 +5,13 @@ import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useDuty } from "../useDuty";
 import { Task } from "./Task";
 import { Duty, DutySchema, TaskDataSchema } from "../types";
-import "../TaskList.css";
+import "../css/TaskList.scss";
 
 // TODO: handle line drop when overflow
-// TODO: handle hover
-// TODO: update error handling to have one per row instead of shared
+// TODO: checked -> uncheck should go to the top of the list
 
 function TaskList() {
-  const { duties, addDuty, updateDuty, error } = useDuty();
+  const { duties, addDuty, updateDuty, deleteDuty } = useDuty();
 
   const [tasks, setTasks] = useState<Duty[]>([]);
   const [completedTasks, setCompletedTasks] = useState<Duty[]>([]);
@@ -39,9 +38,23 @@ function TaskList() {
     }
   }, [duties]);
 
-  const handleChecked = (e: CheckboxChangeEvent, duty: Duty) => {
+  // TODO: move to component
+  const handleChecked = async (e: CheckboxChangeEvent, duty: Duty) => {
     if (DutySchema.parse(duty)) {
-      updateDuty({ ...duty, is_completed: e.target.checked });
+      await updateDuty({ ...duty, is_completed: e.target.checked });
+    }
+  };
+
+  const onSubmit = async (data: Duty) => {
+    // TODO: should have form schema instead of taskDataSchema since duplicated with dutySchema?
+    if (DutySchema.parse(data)) {
+      await updateDuty(data);
+    }
+  };
+
+  const onDelete = async (id: string) => {
+    if (id && typeof id === "string") {
+      await deleteDuty(id);
     }
   };
 
@@ -53,17 +66,12 @@ function TaskList() {
           <Task
             key={task.id}
             data={task}
-            onSubmit={(data) => {
-              // TODO: should have form schema instead of taskDataSchema since duplicated with dutySchema?
-              if (DutySchema.parse(data)) {
-                updateDuty(data);
-              }
-            }}
+            onSubmit={onSubmit}
+            onDelete={onDelete}
             inputProps={{
               placeholder: "Title",
               prefix: <Checkbox onChange={(e) => handleChecked(e, task)} />,
             }}
-            error={error}
           />
         ))
       ) : (
@@ -71,13 +79,14 @@ function TaskList() {
       )}
 
       <Task
+        className="new-task"
         data={{ id: "", name: "", is_completed: false }}
-        onSubmit={(data) => {
+        onSubmit={async (data) => {
           if (TaskDataSchema.pick({ name: true }).parse(data)) {
-            addDuty(data.name);
+            await addDuty(data.name);
           }
         }}
-        error={error}
+        onDelete={async () => {}}
         inputProps={{
           placeholder: "Add a task",
           prefix: <PlusOutlined />,
@@ -90,12 +99,8 @@ function TaskList() {
           <Task
             key={task.id}
             data={task}
-            onSubmit={(data) => {
-              // TODO: should have form schema instead of taskDataSchema since duplicated with dutySchema?
-              if (DutySchema.parse(data)) {
-                updateDuty(data);
-              }
-            }}
+            onSubmit={onSubmit}
+            onDelete={onDelete}
             inputProps={{
               disabled: true,
               placeholder: "Title",
@@ -106,7 +111,6 @@ function TaskList() {
                 />
               ),
             }}
-            error={error}
           />
         ))
       ) : (
