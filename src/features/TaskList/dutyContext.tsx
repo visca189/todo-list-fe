@@ -1,10 +1,30 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Duty, DutySchema } from "./types";
+import axios from "axios";
+
+export type DutyContextType = {
+  duties: Duty[];
+  loading: boolean;
+  addDuty: (name: string) => Promise<void>;
+  fetchDuties: () => Promise<void>;
+  updateDuty: (data: Duty) => Promise<void>;
+  deleteDuty: (id: string) => Promise<void>;
+};
 
 const TaskListBackendUrl = import.meta.env.VITE_TASK_LIST_BACKEND_URL;
 
-function useDuty() {
+export const DutyContext = React.createContext<DutyContextType>({
+  duties: [],
+  loading: true,
+  addDuty: async () => {},
+  fetchDuties: async () => {},
+  updateDuty: async () => {},
+  deleteDuty: async () => {},
+});
+
+const DutyProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [duties, setDuties] = useState<Duty[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -52,17 +72,13 @@ function useDuty() {
     setDuties((prevDuties) => prevDuties.filter((duty) => duty.id !== id));
   };
 
-  useEffect(() => {
-    fetchDuties();
-  }, []);
+  return (
+    <DutyContext.Provider
+      value={{ duties, loading, addDuty, fetchDuties, updateDuty, deleteDuty }}
+    >
+      {children}
+    </DutyContext.Provider>
+  );
+};
 
-  return {
-    duties,
-    addDuty,
-    updateDuty,
-    deleteDuty,
-    loading,
-  };
-}
-
-export { useDuty };
+export default DutyProvider;

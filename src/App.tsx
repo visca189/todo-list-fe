@@ -1,12 +1,14 @@
-import React from "react";
 import { TaskList } from "./features/TaskList/components/TaskList";
+import DutyProvider from "./features/TaskList/dutyContext";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <section>
-        <TaskList />
+        <DutyProvider>
+          <TaskList />
+        </DutyProvider>
       </section>
     </div>
   );
