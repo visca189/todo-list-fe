@@ -65,6 +65,7 @@ function TaskList() {
       <Tasks tasks={pendingTasks} />
 
       <Task
+        className="new-task"
         data={""}
         formData={newTask}
         onSubmit={handleSubmitNewTask}
