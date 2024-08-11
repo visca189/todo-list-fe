@@ -115,16 +115,16 @@ This project uses Yarn as package manager
 
 ## :eyes: Usage
 
-Add new task
+<h4>Add new task</h4>
 <img src="./readme-assets/add-task.gif?raw=true" alt="screenshot" />
 
-Edit task
+<h4>Edit task</h4>
 <img src="./readme-assets/edit-task.gif?raw=true" alt="screenshot" />
 
-Delete task
+<h4>Delete task</h4>
 <img src="./readme-assets/delete-task.gif?raw=true" alt="screenshot" />
 
-Mark task as done
+<h4>Mark task as done</h4>
 <img src="./readme-assets/task-completed.gif?raw=true" alt="screenshot" />
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
