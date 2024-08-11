@@ -1,30 +1,131 @@
-# React + TypeScript + Vite
+<a id="readme-top"></a>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
+  <h1>To-Do List Frontend</h1>
+  <p>
+    A simple and intuitive to-do list application built with React.
+  </p>
+</div>
 
-Currently, two official plugins are available:
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#built-with">Built With</a>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#rest-api">REST API</a></li>
+  </ol>
+</details>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## :star2: About the Project
 
-## Expanding the ESLint configuration
+<!-- Screenshots -->
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### :camera: Screenshots
 
-- Configure the top-level `parserOptions` property like this:
+<div align="center"> 
+  <img src="./readme-assets/about-the-project.gif?raw=true" alt="screenshot" />
+</div>
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+<!-- TechStack -->
+
+### :space_invader: Tech Stack
+
+- React
+- Sass
+- Typescript
+- Zod
+- Vite
+- Vitest
+- React Testing Library
+- MSW
+- Ant Design
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- Env Variables -->
+
+### :key: Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file. Please refer to `.env.sample` for mock value.
+
+`VITE_TASK_LIST_BACKEND_URL`
+
+<!-- Getting Started -->
+
+## :toolbox: Getting Started
+
+<!-- Prerequisites -->
+
+### :bangbang: Prerequisites
+
+This project uses Yarn as package manager
+
+```bash
+ npm install --global yarn
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+<!-- Installation -->
+
+### :gear: Installation
+
+1. Clone the repo
+   ```sh
+   git clone git@github.com:visca189/todo-list-fe.git
+   ```
+2. Install YARN packages
+   ```sh
+   yarn
+   ```
+3. Create .env file based on .env.sample
+4. Start the backend
+   - Please refer to the backend repository [here](https://github.com/visca189/todo-list-be)
+5. Run the project
+
+   - For development:
+
+   ```sh
+   yarn dev
+   ```
+
+   - For build:
+
+   ```sh
+   yarn build
+   yarn preview
+   ```
+
+   - For Test:
+
+   ```sh
+   yarn test
+   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- Usage -->
+
+## :eyes: Usage
+
+Add new task
+<img src="./readme-assets/add-task.gif?raw=true" alt="screenshot" />
+
+Edit task
+<img src="./readme-assets/edit-task.gif?raw=true" alt="screenshot" />
+
+Delete task
+<img src="./readme-assets/delete-task.gif?raw=true" alt="screenshot" />
+
+Mark task as done
+<img src="./readme-assets/task-completed.gif?raw=true" alt="screenshot" />
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+```

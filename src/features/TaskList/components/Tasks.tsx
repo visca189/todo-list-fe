@@ -89,6 +89,7 @@ function Tasks(props: { className?: string; tasks: Duty[] }) {
             type="text"
             name="name"
             placeholder="Title"
+            autoComplete="off"
             value={formData[task.id]?.name || ""}
             onChange={(e) => {
               handleChange(task.id, e);

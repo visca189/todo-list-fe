@@ -75,6 +75,7 @@ function TaskList() {
           name="name"
           placeholder="Add a Task"
           autoFocus
+          autoComplete="off"
           value={newTask}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setNewTask(e.target.value);
