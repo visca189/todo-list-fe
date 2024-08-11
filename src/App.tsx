@@ -1,5 +1,5 @@
 import { TaskList } from "./features/TaskList/components/TaskList";
-import DutyProvider from "./features/TaskList/dutyContext";
+import DutyProvider from "./features/TaskList/context/dutyContext";
 import "./App.css";
 
 function App() {

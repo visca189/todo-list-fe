@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import Checkbox, { CheckboxChangeEvent } from "antd/es/checkbox";
 import { DeleteOutlined } from "@ant-design/icons";
-import { DutyContext } from "../dutyContext";
+import { DutyContext } from "../context/dutyContext";
 import { Duty, DutySchema } from "../types";
 import { Task } from "./Task";
 
-function Tasks(props: { tasks: Duty[] }) {
-  const { tasks } = props;
+function Tasks(props: { className?: string; tasks: Duty[] }) {
+  const { className = "", tasks } = props;
   const { updateDuty, deleteDuty } = useContext(DutyContext);
   const [formData, setFormData] = useState<{ [id: string]: Duty }>({});
   const [errors, setErrors] = useState<{ [id: string]: string }>({});
@@ -29,11 +29,11 @@ function Tasks(props: { tasks: Duty[] }) {
         await updateDuty(newData);
       }
     } catch (err) {
-      if (typeof err === "string") {
-        setErrors((prev) => ({ ...prev, [newData.id]: err }));
-      } else if (err instanceof Error) {
-        setErrors((prev) => ({ ...prev, [newData.id]: err.message }));
-      }
+      console.error(err);
+      setErrors((prev) => ({
+        ...prev,
+        [newData.id]: "Unable to update task, please try again.",
+      }));
     }
   };
 
@@ -55,11 +55,11 @@ function Tasks(props: { tasks: Duty[] }) {
         await deleteDuty(id);
       }
     } catch (err) {
-      if (typeof err === "string") {
-        setErrors((prev) => ({ ...prev, [id]: err }));
-      } else if (err instanceof Error) {
-        setErrors((prev) => ({ ...prev, [id]: err.message }));
-      }
+      console.error(err);
+      setErrors((prev) => ({
+        ...prev,
+        [id]: "Unable to delete task, please try again.",
+      }));
     }
   };
 
@@ -73,6 +73,7 @@ function Tasks(props: { tasks: Duty[] }) {
     tasks.map((task) => (
       <Task
         key={task.id}
+        className={className}
         data={task}
         formData={formData?.[task.id]}
         onSubmit={handleSubmit}

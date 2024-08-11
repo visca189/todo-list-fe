@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Duty } from "../types";
-import { DutyContext } from "../dutyContext";
+import { DutyContext } from "../context/dutyContext";
 import { Tasks } from "./Tasks";
 import { Task } from "./Task";
 import "../css/TaskList.scss";
@@ -46,16 +46,13 @@ function TaskList() {
   // handling for new task
   const handleSubmitNewTask = async (name: Duty["name"]) => {
     try {
-      if (typeof name === "string") {
+      if (name && typeof name === "string") {
         await addDuty(name);
         setNewTask("");
       }
     } catch (err) {
-      if (typeof err === "string") {
-        setAddTaskError(err);
-      } else if (err instanceof Error) {
-        setAddTaskError(err.message);
-      }
+      console.error(err);
+      setAddTaskError("Unable to add new task, please try again.");
     }
   };
 
@@ -77,6 +74,7 @@ function TaskList() {
           type="text"
           name="name"
           placeholder="Add a Task"
+          autoFocus
           value={newTask}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setNewTask(e.target.value);
@@ -84,7 +82,7 @@ function TaskList() {
         />
       </Task>
 
-      <Tasks tasks={completedTasks} />
+      <Tasks className="completed" tasks={completedTasks} />
     </div>
   );
 }

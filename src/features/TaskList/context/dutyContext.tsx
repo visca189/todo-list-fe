@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Duty, DutySchema } from "./types";
+import { Duty, DutySchema } from "../types";
 import axios from "axios";
 
 export type DutyContextType = {

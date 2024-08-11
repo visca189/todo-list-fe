@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import isEqual from "lodash.isequal";
 import { TaskProps } from "../types";
-import { useDetectBlur } from "../useDetectBlur";
+import { useDetectBlur } from "../hook/useDetectBlur";
 
 function Task<T>(props: TaskProps<T>) {
   const { className = "", data, formData, onSubmit, error, children } = props;

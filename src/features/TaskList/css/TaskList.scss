@@ -67,6 +67,10 @@ $default-hovered-bg-color: #f7f8f9;
   padding: 0.5rem $container-padding;
 }
 
+.to-do-list .task-form.completed input {
+  text-decoration: line-through;
+}
+
 .to-do-list .task-form .bin {
   display: none;
   cursor: pointer;
